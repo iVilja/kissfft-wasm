@@ -4,8 +4,19 @@
   "description": "",
   "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "lint": "tslint -c tslint.json  --project . -t codeFrame",
+    "lint-fix": "tslint -c tslint.json --project . -t codeFrame --fix",
+    "build": "make && tsc -p .",
+    "watch": "tsc -p . -w"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Vilja",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^24.0.18",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.1.0",
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.3"
+  }
 }
