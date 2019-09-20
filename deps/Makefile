@@ -1,4 +1,11 @@
-CFLAGS := -Wall
+CCFLAGS := -Wall
+EMCC_FLAGS := -s MODULARIZE -s ALLOW_MEMORY_GROWTH
+OBJ_DIR := ../src
+TARGETS := utils.cpp
+
+all: release
+
+.PHONY: clean
 
 debug: CCFLAGS += -DDEBUG -g
 debug: build
@@ -6,15 +13,19 @@ debug: build
 release: CCFLAGS += -O3
 release: build
 
-build: ./api.cpp
-	emcc $(CCFLAGS) -o ../src/kissfft.js -s MODULARIZE \
-		./api.cpp \
-		kissfft/kiss_fft.c \
+test-browser: CCFLAGS += -DDEBUG -g
+test-browser: OBJ_DIR = ./build
+test-browser: build
+
+build: $(TARGETS)
+	mkdir -p $(OBJ_DIR) && emcc $(CCFLAGS) $(EMCC_FLAGS) \
+		-o $(OBJ_DIR)/kissfft.js -I./kissfft $(TARGETS) \
+		./kissfft/kiss_fft.c ./kissfft/tools/kiss_fftnd.c \
 		-s EXTRA_EXPORTED_RUNTIME_METHODS="['ccall', 'cwrap']" \
-		-s EXPORTED_FUNCTIONS="['_kiss_fft_alloc', '_kiss_fft']"
-#	emcc -O3 -Wall ./fft.cpp ./kissfft/tools/kiss_fftr.c ./kissfft/tools/kiss_fftnd.c \
-#		../kissfft/kiss_fftndr.c ../kissfft/kiss_fft.c -I ../kissfft \
-#		-s EXPORTED_FUNCTIONS="['_rfft2d', '_irfft2d']"
+		-s EXPORTED_FUNCTIONS="['_malloc', '_free', \
+	   	'_kiss_fft_alloc', '_kiss_fft',\
+		'_kiss_fftnd_alloc', '_kiss_fftnd']"
+
 
 clean:
-	rm -r ../src/kissfft.js ../src/kissfft.wasm
+	rm -r ../src/kissfft.js ../src/kissfft.wasm ./build/*

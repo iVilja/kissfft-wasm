@@ -78,22 +78,23 @@ export class ComplexArray {
       throw new Error(`Inconsistent length of arguments: real=${n} - imag=${imag.length}`)
     }
     const arr = new ComplexArray(n)
+    for (let i = 0; i < n; ++i) {
+      wasm._set_value(arr.dataPointer, i * 2, real[i])
+    }
+    if (imag !== undefined) {
       for (let i = 0; i < n; ++i) {
-        wasm._set_value(arr.dataPointer, i * 2, real[i])
-      }
-      if (imag !== undefined) {
-        for (let i = 0; i < n; ++i) {
         wasm._set_value(arr.dataPointer, i * 2 + 1, imag[i])
-        }
       }
+    }
     return arr
   }
 
   // The data is copied.
   public toFloat32Array(): Float32Array {
-    const u8s = new Uint8Array(wasm.HEAPU8.subarray(this.dataPointer, this.dataPointer + this.dataLength * BYTES_PER_ELEMENT))
-    return new Float32Array(u8s.buffer)
+    const f32p = this.dataPointer / BYTES_PER_ELEMENT
+    return new Float32Array(wasm.HEAPF32.subarray(f32p, f32p + this.dataLength))
   }
+
 
   public toRealArray(): RealArray {
     return Float32Array.from({ length: this.length }).map((_, i) => this.realAt(i))

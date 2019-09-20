@@ -3,7 +3,8 @@ module.exports = {
   testEnvironment: 'node',
   testPathIgnorePatterns: [
     '/node_modules/',
-    '<rootDir>/lib/'
+    '<rootDir>/lib/',
+    '<rootDir>/deps/'
   ],
   verbose: true
 };
