@@ -1,48 +1,32 @@
+#include <cstdlib>
+#include <cstring>
+
 #include <emscripten.h>
 
 #include "kissfft/kiss_fft.h"
 
 extern "C" {
 
-    EMSCRIPTEN_KEEPALIVE
-    void fft(int nfft, const float *fin, float *fout) {
-        auto cfg = kiss_fft_alloc(nfft, true, 0, 0);
-        kiss_fft(cfg, (const kiss_fft_cpx *)fin, (kiss_fft_cpx *)fout);
-        kiss_fft_free(cfg);
-    }
+EMSCRIPTEN_KEEPALIVE
+float *allocate(size_t n) {
+    return (float *) calloc(n, sizeof(float));
+}
 
-    EMSCRIPTEN_KEEPALIVE
-    void ifft() {
-    }
+EMSCRIPTEN_KEEPALIVE
+float *copy(const float *arr, size_t n) {
+    auto ret = allocate(n);
+    memcpy(ret, arr, n * sizeof(float));
+    return ret;
+}
 
-    void fft2d() {
-    }
+EMSCRIPTEN_KEEPALIVE
+float get_value(const float *arr, size_t i) {
+    return arr[i];
+}
 
-    void ifft2d() {
-    }
-
-    void fftnd() {
-    }
-
-    void ifftnd() {
-    }
-
-    void rfft() {
-    }
-
-    void irfft() {
-    }
-
-    void rfft2d() {
-    }
-
-    void irfft2d() {
-    }
-
-    void rfftnd() {
-    }
-
-    void irfftnd() {
-    }
+EMSCRIPTEN_KEEPALIVE
+void set_value(float *arr, size_t i, float value) {
+    arr[i] = value;
+}
 
 }

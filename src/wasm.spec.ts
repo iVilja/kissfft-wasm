@@ -1,7 +1,9 @@
 import { WASMModule } from "./wasm_module"
 import { wasm } from "./wasm"
+import { sleep } from "./utils"
 
-const testWASM = async (done: () => void) => {
+test("Simple WASM", async () => {
+  await sleep(1500)
   const f = wasm.cwrap<typeof wasm._kiss_fft_alloc>(
     "kiss_fft_alloc", "number", ["number", "boolean", "number", "number"]
   )
@@ -12,10 +14,9 @@ const testWASM = async (done: () => void) => {
   const ptr2 = wasm._kiss_fft_alloc(20, true, 0, 0)
   expect(ptr2).not.toBe(0)
   wasm._free(ptr2)
-  done()
-}
-
-test("Simple WASM", () => new Promise((done) => {
-  setTimeout(() => testWASM(done), 2000)
-}))
-
+  const ptr3 = wasm._allocate(4)
+  const p = Math.random()
+  wasm._set_value(ptr3, 2, p)
+  expect(wasm._get_value(ptr3, 2)).toBeCloseTo(p)
+  wasm._free(ptr3)
+})

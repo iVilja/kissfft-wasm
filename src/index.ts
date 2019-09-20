@@ -1,4 +1,14 @@
 export { ComplexArray, ComplexNumber } from "./types"
-export { fft } from "./fft"
-export { ifft } from "./ifft"
-export { wasm } from "./wasm"
+
+export { FFTConfig } from "./fft"
+export { FFTNDConfig } from "./fftnd"
+
+export { RFFTConfig } from "./rfft"
+export { RFFTNDConfig } from "./rfftnd"
+
+export {
+  fft, fft2d, fftnd, rfft, rfft2d, rfftnd,
+  ifft, ifft2d, ifftnd, irfft, irfft2d, irfftnd
+} from "./api"
+
+export { wasm as wasmKissFFT } from "./wasm"

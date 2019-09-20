@@ -1,14 +1,16 @@
 {
   "name": "kissfft-wasm",
   "version": "1.0.0",
-  "description": "",
+  "description": "A WebAssembly version",
   "main": "lib/index.js",
   "scripts": {
     "test": "jest",
     "lint": "tslint -c tslint.json  --project . -t codeFrame",
     "lint-fix": "tslint -c tslint.json --project . -t codeFrame --fix",
-    "build:wasm": "cd ./deps && make all && cd ..",
+    "build:wasm-debug": "cd ./deps && make debug && cd ..",
+    "build:wasm": "cd ./deps && make release && cd ..",
     "build:jslib": "tsc -p . && cp src/kissfft.* lib/",
+    "build-debug": "npm run build:wasm-debug && npm run build:jslib",
     "build": "npm run build:wasm && npm run build:jslib",
     "watch": "tsc -p . -w"
   },
