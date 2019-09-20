@@ -11,11 +11,11 @@ type InputNumberArray = number[] | Float32Array
 export class ComplexArray {
   public data: Float32Array
 
-  constructor(N_or_array: number | ComplexArray) {
-    if (typeof N_or_array === 'number') {
-      this.data = new Float32Array(2 * N_or_array)
+  constructor(nOrArray: number | ComplexArray) {
+    if (typeof nOrArray === "number") {
+      this.data = new Float32Array(2 * nOrArray)
     } else {
-      this.data = N_or_array.data.slice()
+      this.data = nOrArray.data.slice()
     }
   }
 
@@ -38,14 +38,14 @@ export class ComplexArray {
     return this.data[i * 2 + 1]
   }
 
-  static fromArray(real_or_complex: InputNumberArray | Array<ComplexNumber>, imag?: InputNumberArray) {
-    const n = real_or_complex.length
+  public static fromArray(realOrComplex: InputNumberArray | ComplexNumber[], imag?: InputNumberArray) {
+    const n = realOrComplex.length
     if (imag !== undefined && n !== imag.length) {
       throw new Error(`Inconsistent length of arguments: real=${n} - imag=${imag.length}`)
     }
     const ca = new ComplexArray(n)
-    if (n > 0 && typeof real_or_complex[0] === 'number') {
-      const real = real_or_complex as number[]
+    if (n > 0 && typeof realOrComplex[0] === "number") {
+      const real = realOrComplex as number[]
       for (let i = 0; i < n; ++i) {
         ca.data[i * 2] = real[i]
       }
@@ -55,7 +55,7 @@ export class ComplexArray {
         }
       }
     } else {
-      const complex = real_or_complex as Array<ComplexNumber>
+      const complex = realOrComplex as ComplexNumber[]
       for (let i = 0; i < n; ++i) {
         ca.data[i * 2] = complex[i].real
         ca.data[i * 2 + 1] = complex[i].imag

@@ -2,5 +2,9 @@ node_modules/
 
 *.swp
 lib/
+build/
 
 package-lock.json
+
+/src/kissfft.js
+/src/kissfft.wasm
