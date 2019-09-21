@@ -1,5 +1,7 @@
 # Kiss FFT for WebAssembly
 
+[![CircleCI](https://circleci.com/gh/ryukina/kissfft-wasm.svg?style=svg)](https://circleci.com/gh/ryukina/kissfft-wasm)
+
 Usage:
 
 - Use APIs such as `fft`, `ifft`, etc. (See [API](./src/api.ts))
