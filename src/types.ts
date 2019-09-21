@@ -11,9 +11,9 @@ export interface ComplexNumber {
   imag: Float32
 }
 
-type NumberArray = Float32[] | Float32Array
+export type DataArray = Float32[] | Float32Array
 
-export abstract class DataArray {
+export abstract class KissFFTArray {
   protected dataPointer: Pointer<Float32> = 0
   protected dataLength: Int = 0
 
@@ -45,7 +45,7 @@ export abstract class DataArray {
   abstract get length(): Int
 }
 
-export class RealArray extends DataArray {
+export class RealArray extends KissFFTArray {
   constructor(nOrArray: Int | RealArray) {
     super()
     if (typeof nOrArray === "number") {
@@ -61,15 +61,18 @@ export class RealArray extends DataArray {
     return this.dataLength
   }
 
-  public static fromFloat32Array(arr: Float32Array): RealArray {
+  public static fromDataArray(arr: DataArray): RealArray {
+    return RealArray.fromArray(arr)
+  }
+
+  public static fromArray(arr: DataArray): RealArray {
     const real = new RealArray(arr.length)
-    const toSet = new Uint8Array(arr.buffer)
-    wasm.HEAPU8.set(toSet, real.dataPointer)
+    wasm.HEAPF32.set(arr, real.dataPointer / BYTES_PER_ELEMENT)
     return real
   }
 }
 
-export class ComplexArray extends DataArray {
+export class ComplexArray extends KissFFTArray {
   constructor(nOrArray: Int | ComplexArray) {
     super()
     if (typeof nOrArray === "number") {
@@ -102,14 +105,16 @@ export class ComplexArray extends DataArray {
 
   // The structure of memory:
   // (arr[0], arr[1]) are the real and imaginary part of the first number, respectively.
-  public static fromFloat32Array(arr: Float32Array): ComplexArray {
+  public static fromDataArray(arr: DataArray): ComplexArray {
+    if (arr.length % 2 === 1) {
+      throw new Error("Array length must be even.")
+    }
     const complex = new ComplexArray(arr.length / 2)
-    const toSet = new Uint8Array(arr.buffer)
-    wasm.HEAPU8.set(toSet, complex.dataPointer)
+    wasm.HEAPF32.set(arr, complex.dataPointer / BYTES_PER_ELEMENT)
     return complex
   }
 
-  public static fromArray(real: NumberArray, imag?: NumberArray) {
+  public static fromArray(real: DataArray, imag?: DataArray) {
     const n = real.length
     if (imag !== undefined && n !== imag.length) {
       throw new Error(`Inconsistent length of arguments: real=${n} - imag=${imag.length}`)
@@ -136,7 +141,7 @@ export class ComplexArray extends DataArray {
 
 }
 
-export abstract class KissFFTConfig<T extends DataArray, K extends DataArray> {
+export abstract class KissFFTConfig<T extends KissFFTArray, K extends KissFFTArray> {
   constructor(
     public readonly nfft: Int,
     public readonly inverse: boolean

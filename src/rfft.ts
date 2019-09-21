@@ -1,5 +1,5 @@
 import {
-  ComplexArray, DataArray, RealArray, 
+  ComplexArray, KissFFTArray, RealArray, 
   Int, Pointer,
   KissFFTConfig
 } from "./types"
@@ -12,7 +12,9 @@ export function checkRealFFT(nfft: Int) {
   }
 }
 
-abstract class AbstractRealFFTConfig<T extends DataArray, K extends DataArray> extends KissFFTConfig<T, K> {
+abstract class AbstractRealFFTConfig<
+  T extends KissFFTArray, K extends KissFFTArray
+> extends KissFFTConfig<T, K> {
   protected ptr: Pointer<this> = 0
 
   constructor(

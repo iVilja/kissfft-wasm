@@ -7,7 +7,7 @@ function testRealNDFFT(dims: Int[]) {
   const n = dims.reduce((x, y) => x * y)
   const arr = Float32Array.from({ length: n }).map(() => Math.random())
   const config = new RealFFTNDConfig(dims)
-  const input = RealArray.fromFloat32Array(arr)
+  const input = RealArray.fromDataArray(arr)
   const output = new ComplexArray(n)
   config.work(input, output)
   const configInverse = new InverseRealFFTNDConfig(dims)

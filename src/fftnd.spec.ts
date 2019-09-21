@@ -7,7 +7,7 @@ function testNDFFT(dims: Int[]) {
   const n = dims.reduce((x, y) => x * y)
   const arr = Float32Array.from({ length: n * 2 }).map(() => Math.random())
   const config = new FFTNDConfig(dims, false)
-  const input = ComplexArray.fromFloat32Array(arr)
+  const input = ComplexArray.fromDataArray(arr)
   const output = new ComplexArray(n)
   config.work(input, output)
   const configInverse = new FFTNDConfig(dims, true)

@@ -18,7 +18,7 @@ test("Complex Array", async () => {
   expect(ca.length).toBe(n)
   const ca2 = new ComplexArray(ca)
   const f32s = ca.toFloat32Array()
-  const ca3 = ComplexArray.fromFloat32Array(f32s)
+  const ca3 = ComplexArray.fromDataArray(f32s)
   for (let i = 0; i < n; ++i) {
     const x = ca.valueAt(i)
     expect(x).toEqual(ca2.valueAt(i))
@@ -46,7 +46,7 @@ test("Real Array", async () => {
   zeros.free()
   expect(zeros.valid).toBe(false)
   const real = new Float32Array(n).map(() => Math.random())
-  const arr = RealArray.fromFloat32Array(real)
+  const arr = RealArray.fromArray(real)
   expect(arr.length).toBe(n)
   arr.asFloat32Array().forEach((x, i) => {
     expect(x).toBe(real[i])

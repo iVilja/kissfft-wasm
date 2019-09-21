@@ -7,7 +7,7 @@ test("1D Real FFT", async () => {
   const n = 20
   const arr = Float32Array.from({ length: n }).map(() => Math.random())
   const config = new RealFFTConfig(n)
-  const input = RealArray.fromFloat32Array(arr)
+  const input = RealArray.fromDataArray(arr)
   const output = new ComplexArray(n)
   config.work(input, output)
   const configInverse = new InverseRealFFTConfig(n)

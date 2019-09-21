@@ -1,5 +1,5 @@
 import {
-  ComplexArray, DataArray, RealArray, 
+  ComplexArray, KissFFTArray, RealArray, 
   Int, Pointer,
   KissFFTConfig
 } from "./types"
@@ -8,7 +8,9 @@ import { checkRealFFT } from "./rfft"
 
 import { wasm } from "./wasm"
 
-abstract class AbstractRealFFTNDConfig<T extends DataArray, K extends DataArray> extends KissFFTConfig<T, K> {
+abstract class AbstractRealFFTNDConfig<
+  T extends KissFFTArray, K extends KissFFTArray
+> extends KissFFTConfig<T, K> {
   protected ptr: Pointer<this> = 0
 
   constructor(

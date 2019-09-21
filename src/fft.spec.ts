@@ -7,7 +7,7 @@ test("1D FFT", async () => {
   const n = 20
   const arr = Float32Array.from({ length: n * 2 }).map(() => Math.random())
   const config = new FFTConfig(n, false)
-  const input = ComplexArray.fromFloat32Array(arr)
+  const input = ComplexArray.fromDataArray(arr)
   const output = new ComplexArray(n)
   config.work(input, output)
   const configInverse = new FFTConfig(n, true)
