@@ -6,22 +6,20 @@ import {
 
 import { wasm } from "./wasm"
 
-export class FFTNDConfig extends KissFFTConfig<ComplexArray> {
+export class FFTNDConfig extends KissFFTConfig<ComplexArray, ComplexArray> {
   private ptr: Pointer<FFTNDConfig> = 0
-  public readonly nfft: Int
 
   constructor(
     public readonly dims: Int[],
-    public readonly inverse: boolean
+    inverse: boolean
   ) {
-    super()
+    super(dims.reduce((x, y) => x * y), inverse)
     const ndims = dims.length
     const dimsPtr = wasm._malloc(Int32Array.BYTES_PER_ELEMENT * ndims)
     dims.forEach((x, i) => {
       wasm.HEAP32[dimsPtr / Int32Array.BYTES_PER_ELEMENT + i] = x
     })
     this.ptr = wasm._kiss_fftnd_alloc(dimsPtr, ndims, inverse, 0, 0)
-    this.nfft = dims.reduce((x, y) => x * y)
     wasm._free(dimsPtr)
   }
 
@@ -34,14 +32,11 @@ export class FFTNDConfig extends KissFFTConfig<ComplexArray> {
     this.ptr = 0
   }
 
-  public work(input: ComplexArray): ComplexArray {
-    if (input.length !== this.nfft) {
-      throw new Error("Input length is inconsistent to Config length.")
-    }
-    const output = new ComplexArray(this.nfft)
+  public work(input: ComplexArray, output: ComplexArray) {
+    this.check(input, output)
     wasm._kiss_fftnd(this.ptr, input.pointer, output.pointer)
     if (this.inverse) {
-      wasm._scale(output.pointer, this.nfft, 1.0 / this.nfft) 
+      wasm._scale(output.pointer, this.nfft * 2, 1.0 / this.nfft) 
     }
     return output
   }

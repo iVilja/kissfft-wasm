@@ -6,14 +6,14 @@ import {
 
 import { wasm } from "./wasm"
 
-export class FFTConfig extends KissFFTConfig<ComplexArray> {
+export class FFTConfig extends KissFFTConfig<ComplexArray, ComplexArray> {
   private ptr: Pointer<FFTConfig> = 0
 
   constructor(
-    public readonly nfft: Int,
-    public readonly inverse: boolean
+    nfft: Int,
+    inverse: boolean
   ) {
-    super()
+    super(nfft, inverse)
     this.ptr = wasm._kiss_fft_alloc(nfft, inverse, 0, 0)
   }
 
@@ -26,16 +26,12 @@ export class FFTConfig extends KissFFTConfig<ComplexArray> {
     this.ptr = 0
   }
 
-  public work(input: ComplexArray): ComplexArray {
-    if (input.length !== this.nfft) {
-      throw new Error("Input length is inconsistent to Config length.")
-    }
-    const output = new ComplexArray(this.nfft)
+  public work(input: ComplexArray, output: ComplexArray) {
+    this.check(input, output)
     wasm._kiss_fft(this.ptr, input.pointer, output.pointer)
     if (this.inverse) {
-      wasm._scale(output.pointer, this.nfft, 1.0 / this.nfft) 
+      wasm._scale(output.pointer, this.nfft * 2, 1.0 / this.nfft) 
     }
-    return output
   }
 
 }

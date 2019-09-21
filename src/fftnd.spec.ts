@@ -8,10 +8,12 @@ function testNDFFT(dims: Int[]) {
   const arr = Float32Array.from({ length: n * 2 }).map(() => Math.random())
   const config = new FFTNDConfig(dims, false)
   const input = ComplexArray.fromFloat32Array(arr)
-  const output = config.work(input)
+  const output = new ComplexArray(n)
+  config.work(input, output)
   const configInverse = new FFTNDConfig(dims, true)
-  const outputInverse = configInverse.work(output)
-  outputInverse.toFloat32Array().forEach((x, i) => {
+  const outputInverse = new ComplexArray(n)
+  configInverse.work(output, outputInverse)
+  outputInverse.asFloat32Array().forEach((x, i) => {
     expect(x).toBeCloseTo(arr[i])
   })
   for (const v of [input, output, outputInverse, config, configInverse]) {

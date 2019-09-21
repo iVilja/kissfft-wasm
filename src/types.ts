@@ -11,15 +11,67 @@ export interface ComplexNumber {
   imag: Float32
 }
 
-export type RealArray = Float32Array
+type NumberArray = Float32[] | Float32Array
 
-type NumberArray = Float32[] | RealArray
+export abstract class DataArray {
+  protected dataPointer: Pointer<Float32> = 0
+  protected dataLength: Int = 0
 
-export class ComplexArray {
-  private dataPointer: Pointer<Float32> = 0
-  private dataLength: Int = 0
+  public get pointer(): Pointer<Float32> {
+    return this.dataPointer
+  }
 
+  // The instance will become invalid and cannot be used after `free()` is called.
+  // Note that all the methods won't check this for performance.
+  public free() {
+    wasm._free(this.dataPointer)
+    this.dataPointer = 0
+  }
+
+  public get valid(): boolean {
+    return this.dataPointer !== 0
+  }
+
+  public asFloat32Array(): Float32Array {
+    const f32p = this.dataPointer / BYTES_PER_ELEMENT
+    return wasm.HEAPF32.subarray(f32p, f32p + this.dataLength)
+  }
+
+  // The data is copied.
+  public toFloat32Array(): Float32Array {
+    return new Float32Array(this.asFloat32Array())
+  }
+
+  abstract get length(): Int
+}
+
+export class RealArray extends DataArray {
+  constructor(nOrArray: Int | RealArray) {
+    super()
+    if (typeof nOrArray === "number") {
+      this.dataLength = nOrArray
+      this.dataPointer = wasm._allocate(this.dataLength)
+    } else {
+      this.dataLength = nOrArray.dataLength
+      this.dataPointer = wasm._copy(nOrArray.pointer, this.dataLength)
+    }
+  }
+
+  public get length(): Int {
+    return this.dataLength
+  }
+
+  public static fromFloat32Array(arr: Float32Array): RealArray {
+    const real = new RealArray(arr.length)
+    const toSet = new Uint8Array(arr.buffer)
+    wasm.HEAPU8.set(toSet, real.dataPointer)
+    return real
+  }
+}
+
+export class ComplexArray extends DataArray {
   constructor(nOrArray: Int | ComplexArray) {
+    super()
     if (typeof nOrArray === "number") {
       this.dataLength = 2 * nOrArray
       this.dataPointer = wasm._allocate(this.dataLength)
@@ -31,21 +83,6 @@ export class ComplexArray {
 
   public get length(): Int {
     return this.dataLength / 2
-  }
-
-  public get pointer(): Pointer<Float32> {
-    return this.dataPointer
-  }
-
-  public get valid(): boolean {
-    return this.dataPointer !== 0
-  }
-
-  // The instance will become invalid and cannot be used after `free()` is called.
-  // Note that all the methods won't check this for performance.
-  public free() {
-    wasm._free(this.dataPointer)
-    this.dataPointer = 0
   }
 
   public realAt(i: number): number {
@@ -64,12 +101,12 @@ export class ComplexArray {
   }
 
   // The structure of memory:
-  // (complex[0], complex[1]) are the real and imaginary part of the first number, respectively.
-  public static fromFloat32Array(complex: Float32Array): ComplexArray {
-    const arr = new ComplexArray(complex.length / 2)
-    const toSet = new Uint8Array(complex.buffer)
-    wasm.HEAPU8.set(toSet, arr.dataPointer)
-    return arr
+  // (arr[0], arr[1]) are the real and imaginary part of the first number, respectively.
+  public static fromFloat32Array(arr: Float32Array): ComplexArray {
+    const complex = new ComplexArray(arr.length / 2)
+    const toSet = new Uint8Array(arr.buffer)
+    wasm.HEAPU8.set(toSet, complex.dataPointer)
+    return complex
   }
 
   public static fromArray(real: NumberArray, imag?: NumberArray) {
@@ -89,29 +126,33 @@ export class ComplexArray {
     return arr
   }
 
-  // The data is copied.
-  public toFloat32Array(): Float32Array {
-    const f32p = this.dataPointer / BYTES_PER_ELEMENT
-    return new Float32Array(wasm.HEAPF32.subarray(f32p, f32p + this.dataLength))
-  }
-
-
-  public toRealArray(): RealArray {
+  public toRealArray(): Float32Array {
     return Float32Array.from({ length: this.length }).map((_, i) => this.realAt(i))
   }
 
-  public toImagArray(): RealArray {
+  public toImagArray(): Float32Array {
     return Float32Array.from({ length: this.length }).map((_, i) => this.imagAt(i))
   }
 
 }
 
-export abstract class KissFFTConfig<T extends ComplexArray | RealArray> {
-  abstract readonly inverse: boolean
+export abstract class KissFFTConfig<T extends DataArray, K extends DataArray> {
+  constructor(
+    public readonly nfft: Int,
+    public readonly inverse: boolean
+  ) {}
+
   abstract get pointer(): Pointer<this>
+  abstract free(): void
+  abstract work(input: T, output: K): void
+
   public get valid(): boolean {
     return this.pointer !== 0
   }
-  abstract free(): void
-  abstract work(input: T): T
+
+  public check(input: T, output: K) {
+    if (input.length !== this.nfft) {
+      throw new Error("Input or Output length is inconsistent to Config length.")
+    }
+  }
 }

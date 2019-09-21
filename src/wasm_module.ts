@@ -12,6 +12,14 @@ export interface WASMModule {
   _kiss_fftnd_alloc(dims: Pointer<Int>, ndims: Int, inverse: boolean, mem: Int, lenmem: Int): Pointer<void>
   _kiss_fftnd(cfg: Pointer<void>, fin: Pointer<Float32>, fout: Pointer<Float32>): void
 
+  _kiss_fftr_alloc(nfft: Int, inverse: boolean, mem: Int, lenmem: Int): Pointer<void>
+  _kiss_fftr(cfg: Pointer<void>, timedata: Pointer<Float32>, freqdata: Pointer<Float32>): void
+  _kiss_fftri(cfg: Pointer<void>, freqdata: Pointer<Float32>, timedata: Pointer<Float32>): void
+
+  _kiss_fftndr_alloc(dims: Pointer<Int>, ndims: Int, inverse: boolean, mem: Int, lenmem: Int): Pointer<void>
+  _kiss_fftndr(cfg: Pointer<void>, timedata: Pointer<Float32>, freqdata: Pointer<Float32>): void
+  _kiss_fftndri(cfg: Pointer<void>, freqdata: Pointer<Float32>, timedata: Pointer<Float32>): void
+
   HEAP32: Int32Array
   HEAPU8: Uint8Array
   HEAPF32: Float32Array

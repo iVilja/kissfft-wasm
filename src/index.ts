@@ -3,8 +3,8 @@ export { ComplexArray, ComplexNumber } from "./types"
 export { FFTConfig } from "./fft"
 export { FFTNDConfig } from "./fftnd"
 
-export { RFFTConfig } from "./rfft"
-export { RFFTNDConfig } from "./rfftnd"
+export { RealFFTConfig, InverseRealFFTConfig } from "./rfft"
+export { RealFFTNDConfig, InverseRealFFTNDConfig } from "./rfftnd"
 
 export {
   fft, fft2d, fftnd, rfft, rfft2d, rfftnd,

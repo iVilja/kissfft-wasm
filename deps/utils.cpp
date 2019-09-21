@@ -29,7 +29,7 @@ void set_value(float *arr, size_t i, float value) {
 
 EMSCRIPTEN_KEEPALIVE
 void scale(float *arr, size_t n, float factor) {
-    for (auto i = 0; i < n * 2; ++i) {
+    for (auto i = 0; i < n; ++i) {
         arr[i] *= factor;
     }
 }

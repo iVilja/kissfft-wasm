@@ -1,7 +1,7 @@
-import { ComplexArray, ComplexNumber } from "./types"
+import { ComplexArray, ComplexNumber, RealArray } from "./types"
 import { sleep } from "./utils"
 
-test("Basic types", async () => {
+test("Complex Array", async () => {
   await sleep(1500)
   const n = 20
   const zeros = new ComplexArray(n)
@@ -33,4 +33,23 @@ test("Basic types", async () => {
   ca.free()
   ca2.free()
   ca3.free()
+})
+
+test("Real Array", async () => {
+  await sleep(1500)
+  const n = 20
+  const zeros = new RealArray(n)
+  zeros.asFloat32Array().forEach((x) => {
+    expect(x).toBe(0)
+  })
+  expect(zeros.valid).toBe(true)
+  zeros.free()
+  expect(zeros.valid).toBe(false)
+  const real = new Float32Array(n).map(() => Math.random())
+  const arr = RealArray.fromFloat32Array(real)
+  expect(arr.length).toBe(n)
+  arr.asFloat32Array().forEach((x, i) => {
+    expect(x).toBe(real[i])
+  })
+  arr.free()
 })

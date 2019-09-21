@@ -21,10 +21,13 @@ build: $(TARGETS)
 	mkdir -p $(OBJ_DIR) && emcc $(CCFLAGS) $(EMCC_FLAGS) \
 		-o $(OBJ_DIR)/kissfft.js -I./kissfft $(TARGETS) \
 		./kissfft/kiss_fft.c ./kissfft/tools/kiss_fftnd.c \
+		./kissfft/tools/kiss_fftr.c ./kissfft/tools/kiss_fftndr.c \
 		-s EXTRA_EXPORTED_RUNTIME_METHODS="['ccall', 'cwrap']" \
 		-s EXPORTED_FUNCTIONS="['_malloc', '_free', \
-	   	'_kiss_fft_alloc', '_kiss_fft',\
-		'_kiss_fftnd_alloc', '_kiss_fftnd']"
+		'_kiss_fft_alloc', '_kiss_fft',\
+		'_kiss_fftnd_alloc', '_kiss_fftnd', \
+		'_kiss_fftr_alloc', '_kiss_fftr', '_kiss_fftri',\
+		'_kiss_fftndr_alloc', '_kiss_fftndr', '_kiss_fftndri']"
 
 
 clean:
