@@ -4,8 +4,15 @@ jobs:
     docker:
         - image: trzeci/emscripten:sdk-incoming-64bit
 
+    working_directory: ~/repo
+
     steps:
       - checkout
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
 
       - run:
           name: Prebuild
@@ -13,6 +20,11 @@ jobs:
             git submodule init
             git submodule update --remote
             npm install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
 
       - run:
           name: Build
