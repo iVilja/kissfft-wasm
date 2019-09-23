@@ -1,4 +1,4 @@
-export { ComplexArray, ComplexNumber } from "./types"
+export { ComplexArray, ComplexNumber, RealArray } from "./types"
 
 export { FFTConfig } from "./fft"
 export { FFTNDConfig } from "./fftnd"

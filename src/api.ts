@@ -103,5 +103,3 @@ export function irfftnd(input: DataArray, dims: Int | Int[]): Float32Array {
   dims = makeDims(dims, arguments)
   return fftInner(new InverseRealFFTNDConfig(dims), ComplexArray, RealArray, input)
 }
-
-
