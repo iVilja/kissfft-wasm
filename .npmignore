@@ -1,0 +1,12 @@
+deps/
+
+*.swp
+lib/
+build/
+
+package-lock.json
+
+/src/kissfft.js
+/src/kissfft.wasm
+/src/kissfft.wasm.map
+/src/kissfft.wast
