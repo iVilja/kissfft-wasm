@@ -1,5 +1,5 @@
 {
-  "name": "kissfft-wasm",
+  "name": "@ryukina/kissfft-wasm",
   "version": "1.0.0",
   "description": "A WebAssembly version",
   "main": "lib/index.js",
@@ -26,5 +26,6 @@
     "ts-jest": "^24.1.0",
     "tslint": "^5.20.0",
     "typescript": "^3.6.3"
-  }
+  },
+  "publishConfig": { "registry": "https://npm.pkg.github.com/" }
 }
