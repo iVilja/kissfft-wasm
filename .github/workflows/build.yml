@@ -15,7 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: git submodule update --init --recursive
+        with:
+          submodules: 'true'
       - name: Setup cache
         id: cache-system-libraries
         uses: actions/cache@v2
