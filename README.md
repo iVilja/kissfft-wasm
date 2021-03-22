@@ -2,6 +2,15 @@
 
 [![Build & Test](https://github.com/ryukina/kissfft-wasm/actions/workflows/build.yml/badge.svg)](https://github.com/ryukina/kissfft-wasm/actions/workflows/build.yml)
 
+## Install
+
+```bash
+$ npm install kissfft
+```
+
+Note that you may want to copy the `kissfft.wasm` file explicitly during building process since most compilers/bundlers won't
+handle it by default.
+
 ## Usage
 
 - Use APIs such as `fft`, `ifft`, etc. (See [API](./src/api.ts))
