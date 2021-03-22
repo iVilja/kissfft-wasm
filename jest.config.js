@@ -5,7 +5,8 @@ module.exports = {
   testPathIgnorePatterns: [
     '/node_modules/',
     '<rootDir>/lib/',
-    '<rootDir>/deps/'
+    '<rootDir>/deps/',
+    '<rootDir>/emsdk-cache/'
   ],
   verbose: true
 };
