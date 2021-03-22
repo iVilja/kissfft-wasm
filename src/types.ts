@@ -48,6 +48,7 @@ export abstract class KissFFTArray {
 export class RealArray extends KissFFTArray {
   constructor(nOrArray: Int | RealArray) {
     super()
+    assertWASM()
     if (typeof nOrArray === "number") {
       this.dataLength = nOrArray
       this.dataPointer = wasm._allocate(this.dataLength)
@@ -75,6 +76,7 @@ export class RealArray extends KissFFTArray {
 export class ComplexArray extends KissFFTArray {
   constructor(nOrArray: Int | ComplexArray) {
     super()
+    assertWASM()
     if (typeof nOrArray === "number") {
       this.dataLength = 2 * nOrArray
       this.dataPointer = wasm._allocate(this.dataLength)

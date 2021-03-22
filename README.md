@@ -1,6 +1,6 @@
 # Kiss FFT for WebAssembly
 
-[![CircleCI](https://circleci.com/gh/ryukina/kissfft-wasm.svg?style=svg)](https://circleci.com/gh/ryukina/kissfft-wasm)
+[![Build & Test](https://github.com/ryukina/kissfft-wasm/actions/workflows/build.yml/badge.svg)](https://github.com/ryukina/kissfft-wasm/actions/workflows/build.yml)
 
 ## Usage
 
