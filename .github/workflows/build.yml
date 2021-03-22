@@ -2,9 +2,9 @@ name: Build & Test
 
 on:
   push:
-    branches: [ $default-branch ]
+    branches: [ main ]
   pull_request:
-    branches: [ $default-branch ]
+    branches: [ main ]
 
 env:
   EM_VERSION: 2.0.15
