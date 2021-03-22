@@ -1,5 +1,4 @@
-import { Int, Float32, Pointer, ComplexNumber } from "./types"
-import { wasm } from "./wasm"
+import { Int, Float32, Pointer } from "./types"
 
 
 export interface WASMModule {

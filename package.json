@@ -5,8 +5,8 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "jest --maxWorkers=2",
-    "lint": "tslint -c tslint.json  --project . -t codeFrame",
-    "lint-fix": "tslint -c tslint.json --project . -t codeFrame --fix",
+    "lint": "eslint . --ext .ts,.js",
+    "lint-fix": "eslint --fix . --ext .ts,.js",
     "build:wasm-debug": "cd ./deps && make debug && cd ..",
     "build:wasm": "cd ./deps && make release && cd ..",
     "build:jslib": "tsc -p . && cp src/kissfft.* lib/",
@@ -19,13 +19,17 @@
   "repository": "github:ryukina/kissfft-wasm",
   "devDependencies": {
     "@babel/code-frame": "^7.5.5",
-    "@types/jest": "^24.0.18",
-    "@types/node": "^12.7.5",
-    "@types/webassembly-js-api.d.ts": "https://github.com/winksaville/webassembly-js-api.d.ts",
-    "jest": "^24.9.0",
-    "ts-jest": "^24.1.0",
-    "tslint": "^5.20.0",
-    "typescript": "^3.6.3"
+    "@types/jest": "^26.0.21",
+    "@types/node": "^14.14.35",
+    "@types/webassembly-js-api.d.ts": "git+https://github.com/winksaville/webassembly-js-api.d.ts.git",
+    "@typescript-eslint/eslint-plugin": "^4.18.0",
+    "@typescript-eslint/parser": "^4.18.0",
+    "eslint": "^7.22.0",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.5.4",
+    "typescript": "^4.2.3"
   },
-  "publishConfig": { "registry": "https://npm.pkg.github.com/" }
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  }
 }

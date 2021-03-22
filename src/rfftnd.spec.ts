@@ -1,6 +1,6 @@
 import { RealFFTNDConfig, InverseRealFFTNDConfig } from "./rfftnd"
-import { sleep } from "./utils"
 import { RealArray, ComplexArray, Int } from "./types"
+import { waitLoading } from "./wasm"
 
 
 function testRealNDFFT(dims: Int[]) {
@@ -22,11 +22,11 @@ function testRealNDFFT(dims: Int[]) {
 }
 
 test("2D Real FFT", async () => {
-  await sleep(1500)
+  await waitLoading()
   testRealNDFFT([5, 4])
 })
 
 test("4D Real FFT", async () => {
-  await sleep(1500)
+  await waitLoading()
   testRealNDFFT([2, 3, 2, 4])
 })

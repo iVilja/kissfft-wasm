@@ -20,8 +20,8 @@ test-browser: build
 build: $(TARGETS)
 	mkdir -p $(OBJ_DIR) && emcc $(CCFLAGS) $(EMCC_FLAGS) \
 		-o $(OBJ_DIR)/kissfft.js -I./kissfft $(TARGETS) \
-		./kissfft/kiss_fft.c ./kissfft/tools/kiss_fftnd.c \
-		./kissfft/tools/kiss_fftr.c ./kissfft/tools/kiss_fftndr.c \
+		./kissfft/kiss_fft.c ./kissfft/kiss_fftnd.c \
+		./kissfft/kiss_fftr.c ./kissfft/kiss_fftndr.c \
 		-s EXTRA_EXPORTED_RUNTIME_METHODS="['ccall', 'cwrap']" \
 		-s EXPORTED_FUNCTIONS="['_malloc', '_free', \
 		'_kiss_fft_alloc', '_kiss_fft',\

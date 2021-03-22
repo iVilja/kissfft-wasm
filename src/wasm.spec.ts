@@ -1,9 +1,7 @@
-import { WASMModule } from "./wasm_module"
-import { wasm } from "./wasm"
-import { sleep } from "./utils"
+import { waitLoading, wasm } from "./wasm"
 
 test("Simple WASM", async () => {
-  await sleep(1500)
+  await waitLoading()
   const f = wasm.cwrap<typeof wasm._kiss_fft_alloc>(
     "kiss_fft_alloc", "number", ["number", "boolean", "number", "number"]
   )

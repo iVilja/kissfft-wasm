@@ -1,8 +1,8 @@
-import { wasm } from "./wasm"
+import { wasm, assertWASM } from "./wasm"
 
 export type Int = number
 export type Float32 = number
-export type Pointer<T> = number
+export type Pointer<T> = number  // eslint-disable-line @typescript-eslint/no-unused-vars
 
 const BYTES_PER_ELEMENT = Float32Array.BYTES_PER_ELEMENT  // 4
 
@@ -23,7 +23,7 @@ export abstract class KissFFTArray {
 
   // The instance will become invalid and cannot be used after `free()` is called.
   // Note that all the methods won't check this for performance.
-  public free() {
+  public free(): void {
     wasm._free(this.dataPointer)
     this.dataPointer = 0
   }
@@ -114,7 +114,7 @@ export class ComplexArray extends KissFFTArray {
     return complex
   }
 
-  public static fromArray(real: DataArray, imag?: DataArray) {
+  public static fromArray(real: DataArray, imag?: DataArray): ComplexArray {
     const n = real.length
     if (imag !== undefined && n !== imag.length) {
       throw new Error(`Inconsistent length of arguments: real=${n} - imag=${imag.length}`)
@@ -145,7 +145,9 @@ export abstract class KissFFTConfig<T extends KissFFTArray, K extends KissFFTArr
   constructor(
     public readonly nfft: Int,
     public readonly inverse: boolean
-  ) {}
+  ) {
+    assertWASM()
+  }
 
   abstract get pointer(): Pointer<this>
   abstract free(): void
@@ -155,8 +157,8 @@ export abstract class KissFFTConfig<T extends KissFFTArray, K extends KissFFTArr
     return this.pointer !== 0
   }
 
-  public check(input: T, output: K) {
-    if (input.length !== this.nfft) {
+  public check(input: T, output: K): void {
+    if (input.length !== this.nfft || output.length !== this.nfft) {
       throw new Error("Input or Output length is inconsistent to Config length.")
     }
   }

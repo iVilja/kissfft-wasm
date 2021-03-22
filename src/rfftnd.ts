@@ -32,7 +32,7 @@ abstract class AbstractRealFFTNDConfig<
     return this.ptr
   }
 
-  public free() {
+  public free(): void {
     wasm._free(this.ptr)
     this.ptr = 0
   }
@@ -43,7 +43,7 @@ export class RealFFTNDConfig extends AbstractRealFFTNDConfig<RealArray, ComplexA
     super(dims, false)
   }
 
-  public work(input: RealArray, output: ComplexArray) {
+  public work(input: RealArray, output: ComplexArray): void {
     this.check(input, output)
     wasm._kiss_fftndr(this.ptr, input.pointer, output.pointer)
   }
@@ -54,7 +54,7 @@ export class InverseRealFFTNDConfig extends AbstractRealFFTNDConfig<ComplexArray
     super(dims, true)
   }
 
-  public work(input: ComplexArray, output: RealArray) {
+  public work(input: ComplexArray, output: RealArray): void {
     this.check(input, output)
     wasm._kiss_fftndri(this.ptr, input.pointer, output.pointer)
     wasm._scale(output.pointer, this.nfft, 1.0 / this.nfft) 

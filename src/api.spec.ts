@@ -3,9 +3,7 @@ import {
   ifft, ifft2d, ifftnd, irfft, irfft2d, irfftnd
 } from "./api"
 
-import { FFTConfig } from "./fft"
-import { sleep } from "./utils"
-import { ComplexArray } from "./types"
+import { waitLoading } from "./wasm"
 
 function compareArrays(a: Float32Array, b: Float32Array) {
   expect(a.length).toBe(b.length)
@@ -15,7 +13,7 @@ function compareArrays(a: Float32Array, b: Float32Array) {
 }
 
 test("FFT APIs", async () => {
-  await sleep(1500)
+  await waitLoading()
   const n = 20
   const arr = Float32Array.from({ length: n * 2 }).map(() => Math.random())
 

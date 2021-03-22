@@ -1,6 +1,6 @@
 import { FFTNDConfig } from "./fftnd"
-import { sleep } from "./utils"
 import { ComplexArray, Int } from "./types"
+import { waitLoading } from "./wasm"
 
 
 function testNDFFT(dims: Int[]) {
@@ -22,11 +22,11 @@ function testNDFFT(dims: Int[]) {
 }
 
 test("2D FFT", async () => {
-  await sleep(1500)
+  await waitLoading()
   testNDFFT([5, 4])
 })
 
 test("4D FFT", async () => {
-  await sleep(1500)
+  await waitLoading()
   testNDFFT([2, 3, 2, 5])
 })

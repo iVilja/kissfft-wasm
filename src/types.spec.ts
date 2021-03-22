@@ -1,8 +1,8 @@
-import { ComplexArray, ComplexNumber, RealArray } from "./types"
-import { sleep } from "./utils"
+import { ComplexArray, RealArray } from "./types"
+import { waitLoading } from "./wasm"
 
 test("Complex Array", async () => {
-  await sleep(1500)
+  await waitLoading()
   const n = 20
   const zeros = new ComplexArray(n)
   for (let i = 0; i < n; ++i) {
@@ -36,7 +36,7 @@ test("Complex Array", async () => {
 })
 
 test("Real Array", async () => {
-  await sleep(1500)
+  await waitLoading()
   const n = 20
   const zeros = new RealArray(n)
   zeros.asFloat32Array().forEach((x) => {
