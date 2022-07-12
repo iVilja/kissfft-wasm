@@ -1,6 +1,6 @@
 {
   "name": "kissfft-wasm",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "A WebAssembly version of KissFFT.",
   "keywords": [
     "FFT",

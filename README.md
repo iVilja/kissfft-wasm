@@ -6,7 +6,7 @@
 ## Install
 
 ```bash
-$ npm install kissfft
+$ npm install kissfft-wasm
 ```
 
 Note that you may want to copy the `kissfft.wasm` file explicitly during building process since most compilers/bundlers won't
