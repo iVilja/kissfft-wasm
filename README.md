@@ -1,6 +1,6 @@
 # Kiss FFT for WebAssembly
 
-[![Build & Test](https://github.com/ryukina/kissfft-wasm/actions/workflows/build.yml/badge.svg)](https://github.com/ryukina/kissfft-wasm/actions/workflows/build.yml)
+[![Build & Test](https://github.com/iVilja/kissfft-wasm/actions/workflows/build.yml/badge.svg)](https://github.com/iVilja/kissfft-wasm/actions/workflows/build.yml)
 [![NPM](https://nodei.co/npm/kissfft-wasm.png)](https://npmjs.org/kissfft-wasm/)
 
 ## Install
