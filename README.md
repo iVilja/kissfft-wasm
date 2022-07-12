@@ -1,4 +1,4 @@
-# Kiss FFT for WebAssembly
+# Kiss FFT in WebAssembly
 
 [![Build & Test](https://github.com/iVilja/kissfft-wasm/actions/workflows/build.yml/badge.svg)](https://github.com/iVilja/kissfft-wasm/actions/workflows/build.yml)
 [![NPM](https://nodei.co/npm/kissfft-wasm.png)](https://npmjs.org/kissfft-wasm/)
