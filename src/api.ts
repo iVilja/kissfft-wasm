@@ -1,12 +1,12 @@
 import {
   DataArray, KissFFTArray, ComplexArray, RealArray,
   KissFFTConfig, Int
-} from "./types"
+} from "./types.js"
 
-import { FFTConfig } from "./fft"
-import { FFTNDConfig } from "./fftnd"
-import { RealFFTConfig, InverseRealFFTConfig } from "./rfft"
-import { RealFFTNDConfig, InverseRealFFTNDConfig } from "./rfftnd"
+import { FFTConfig } from "./fft.js"
+import { FFTNDConfig } from "./fftnd.js"
+import { RealFFTConfig, InverseRealFFTConfig } from "./rfft.js"
+import { RealFFTNDConfig, InverseRealFFTNDConfig } from "./rfftnd.js"
 
 interface ArrayType<T> {
   new(n: Int): T

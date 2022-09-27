@@ -2,9 +2,9 @@ import {
   ComplexArray,
   Int, Pointer,
   KissFFTConfig
-} from "./types"
+} from "./types.js"
 
-import { wasm } from "./wasm"
+import { wasm } from "./wasm.js"
 
 export class FFTConfig extends KissFFTConfig<ComplexArray, ComplexArray> {
   private ptr: Pointer<FFTConfig> = 0
@@ -30,7 +30,7 @@ export class FFTConfig extends KissFFTConfig<ComplexArray, ComplexArray> {
     this.check(input, output)
     wasm._kiss_fft(this.ptr, input.pointer, output.pointer)
     if (this.inverse) {
-      wasm._scale(output.pointer, this.nfft * 2, 1.0 / this.nfft) 
+      wasm._scale(output.pointer, this.nfft * 2, 1.0 / this.nfft)
     }
   }
 }

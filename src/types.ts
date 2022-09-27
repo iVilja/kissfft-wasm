@@ -1,4 +1,4 @@
-import { wasm, assertWASM } from "./wasm"
+import { wasm, assertWASM } from "./wasm.js"
 
 export type Int = number
 export type Float32 = number

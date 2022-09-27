@@ -8,5 +8,9 @@ module.exports = {
     '<rootDir>/deps/',
     '<rootDir>/emsdk-cache/'
   ],
-  verbose: true
+  verbose: true,
+
+  moduleNameMapper: {
+    '^(\\.{1,2}/.*)\\.js$': '$1',
+  }
 };

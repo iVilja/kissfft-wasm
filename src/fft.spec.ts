@@ -1,6 +1,6 @@
-import { FFTConfig } from "./fft"
-import { ComplexArray } from "./types"
-import { waitLoading } from "./wasm"
+import { FFTConfig } from "./fft.js"
+import { ComplexArray } from "./types.js"
+import { waitLoading } from "./wasm.js"
 
 test("1D FFT", async () => {
   await waitLoading()

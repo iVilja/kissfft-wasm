@@ -1,6 +1,6 @@
-import { RealFFTConfig, InverseRealFFTConfig } from "./rfft"
-import { RealArray, ComplexArray } from "./types"
-import { waitLoading } from "./wasm"
+import { RealFFTConfig, InverseRealFFTConfig } from "./rfft.js"
+import { RealArray, ComplexArray } from "./types.js"
+import { waitLoading } from "./wasm.js"
 
 test("1D Real FFT", async () => {
   await waitLoading()

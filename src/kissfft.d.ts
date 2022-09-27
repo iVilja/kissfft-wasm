@@ -1,5 +1,5 @@
-import { WASMModule } from "./wasm_module"
+import { WASMModule } from "./wasm_module.js"
 
-declare function loadModule(): Promise<WASMModule>
+declare const loadModule: () => Promise<WASMModule>
 
-export = loadModule
+export default loadModule

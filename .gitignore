@@ -4,7 +4,7 @@ node_modules/
 lib/
 build/
 
-/src/kissfft.js
+/src/kissfft.cjs
 /src/kissfft.wasm
 /src/kissfft.wasm.map
 /src/kissfft.wast

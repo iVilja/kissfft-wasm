@@ -1,4 +1,4 @@
-import { waitLoading, wasm } from "./wasm"
+import { waitLoading, wasm } from "./wasm.js"
 
 test("Simple WASM", async () => {
   await waitLoading()

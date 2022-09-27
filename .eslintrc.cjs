@@ -2,7 +2,9 @@
 module.exports = {
   root: true,
   env: {
-    // "browser": true,
+    "es2021": true,
+    "browser": true,
+    "node": true,
   },
   parser: "@typescript-eslint/parser",
   plugins: [
@@ -13,6 +15,9 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
   ],
   rules: {
-    "prefer-rest-params": 0
-  }
+    "prefer-rest-params": 0,
+  },
+  parserOptions: {
+    "sourceType": "module"
+  },
 }

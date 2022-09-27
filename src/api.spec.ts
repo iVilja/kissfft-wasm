@@ -1,9 +1,8 @@
 import {
   fft, fft2d, fftnd, rfft, rfft2d, rfftnd,
   ifft, ifft2d, ifftnd, irfft, irfft2d, irfftnd
-} from "./api"
-
-import { waitLoading } from "./wasm"
+} from "./api.js"
+import { waitLoading } from "./wasm.js"
 
 function compareArrays(a: Float32Array, b: Float32Array) {
   expect(a.length).toBe(b.length)

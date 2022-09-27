@@ -1,6 +1,6 @@
-import { FFTNDConfig } from "./fftnd"
-import { ComplexArray, Int } from "./types"
-import { waitLoading } from "./wasm"
+import { FFTNDConfig } from "./fftnd.js"
+import { ComplexArray, Int } from "./types.js"
+import { waitLoading } from "./wasm.js"
 
 
 function testNDFFT(dims: Int[]) {

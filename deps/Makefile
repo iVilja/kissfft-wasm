@@ -19,7 +19,7 @@ test-browser: build
 
 build: $(TARGETS)
 	mkdir -p $(OBJ_DIR) && emcc $(CCFLAGS) $(EMCC_FLAGS) \
-		-o $(OBJ_DIR)/kissfft.js -I./kissfft $(TARGETS) \
+		-o $(OBJ_DIR)/kissfft.cjs -I./kissfft $(TARGETS) \
 		./kissfft/kiss_fft.c ./kissfft/kiss_fftnd.c \
 		./kissfft/kiss_fftr.c ./kissfft/kiss_fftndr.c \
 		-s EXPORTED_RUNTIME_METHODS="['ccall', 'cwrap']" \

@@ -1,14 +1,14 @@
-export { ComplexArray, ComplexNumber, RealArray } from "./types"
+export { ComplexArray, ComplexNumber, RealArray } from "./types.js"
 
-export { FFTConfig } from "./fft"
-export { FFTNDConfig } from "./fftnd"
+export { FFTConfig } from "./fft.js"
+export { FFTNDConfig } from "./fftnd.js"
 
-export { RealFFTConfig, InverseRealFFTConfig } from "./rfft"
-export { RealFFTNDConfig, InverseRealFFTNDConfig } from "./rfftnd"
+export { RealFFTConfig, InverseRealFFTConfig } from "./rfft.js"
+export { RealFFTNDConfig, InverseRealFFTNDConfig } from "./rfftnd.js"
 
 export {
   fft, fft2d, fftnd, rfft, rfft2d, rfftnd,
   ifft, ifft2d, ifftnd, irfft, irfft2d, irfftnd
-} from "./api"
+} from "./api.js"
 
-export { wasm as wasmKissFFT } from "./wasm"
+export { wasm as wasmKissFFT } from "./wasm.js"

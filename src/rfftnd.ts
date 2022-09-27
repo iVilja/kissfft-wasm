@@ -1,12 +1,10 @@
 import {
-  ComplexArray, KissFFTArray, RealArray, 
+  ComplexArray, KissFFTArray, RealArray,
   Int, Pointer,
   KissFFTConfig
-} from "./types"
-
-import { checkRealFFT } from "./rfft"
-
-import { wasm } from "./wasm"
+} from "./types.js"
+import { checkRealFFT } from "./rfft.js"
+import { wasm } from "./wasm.js"
 
 abstract class AbstractRealFFTNDConfig<
   T extends KissFFTArray, K extends KissFFTArray
@@ -57,6 +55,6 @@ export class InverseRealFFTNDConfig extends AbstractRealFFTNDConfig<ComplexArray
   public work(input: ComplexArray, output: RealArray): void {
     this.check(input, output)
     wasm._kiss_fftndri(this.ptr, input.pointer, output.pointer)
-    wasm._scale(output.pointer, this.nfft, 1.0 / this.nfft) 
+    wasm._scale(output.pointer, this.nfft, 1.0 / this.nfft)
   }
 }

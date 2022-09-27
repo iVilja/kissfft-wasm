@@ -1,5 +1,5 @@
-import { ComplexArray, RealArray } from "./types"
-import { waitLoading } from "./wasm"
+import { ComplexArray, RealArray } from "./types.js"
+import { waitLoading } from "./wasm.js"
 
 test("Complex Array", async () => {
   await waitLoading()

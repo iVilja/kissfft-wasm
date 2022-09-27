@@ -1,4 +1,4 @@
-import { Int, Float32, Pointer } from "./types"
+import { Int, Float32, Pointer } from "./types.js"
 
 
 export interface WASMModule {
@@ -28,7 +28,7 @@ export interface WASMModule {
   _get_value(arr: Pointer<Float32>, i: Int): Float32
   _set_value(arr: Pointer<Float32>, i: Int, value: Float32): void
   _scale(arr: Pointer<Float32>, n: Int, scale: Float32): void
-  
+
   _malloc<T>(size: Int): Pointer<T>
   _free<T>(ptr: Pointer<T>): void
 }

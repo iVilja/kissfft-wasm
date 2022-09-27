@@ -1,6 +1,6 @@
-import { RealFFTNDConfig, InverseRealFFTNDConfig } from "./rfftnd"
-import { RealArray, ComplexArray, Int } from "./types"
-import { waitLoading } from "./wasm"
+import { RealFFTNDConfig, InverseRealFFTNDConfig } from "./rfftnd.js"
+import { RealArray, ComplexArray, Int } from "./types.js"
+import { waitLoading } from "./wasm.js"
 
 
 function testRealNDFFT(dims: Int[]) {

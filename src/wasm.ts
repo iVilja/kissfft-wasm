@@ -1,10 +1,13 @@
-import { WASMModule } from "./wasm_module"
-
-import loadModule = require("./kissfft")
+import { WASMModule } from "./wasm_module.js"
 
 export let wasm: WASMModule
 
-const _loading = loadModule().then((x) => void (wasm = x))
+const loadModule = async () => {
+  const mod = await import("./kissfft")
+  wasm = await mod.default()
+}
+
+const _loading = loadModule()
 
 export function assertWASM(): void {
   if (wasm === undefined) {
