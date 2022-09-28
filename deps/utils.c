@@ -1,9 +1,7 @@
-#include <cstdlib>
-#include <cstring>
+#include <stdlib.h>
+#include <string.h>
 
 #include <emscripten.h>
-
-extern "C" {
 
 EMSCRIPTEN_KEEPALIVE
 float *allocate(size_t n) {
@@ -12,7 +10,7 @@ float *allocate(size_t n) {
 
 EMSCRIPTEN_KEEPALIVE
 float *copy(const float *arr, size_t n) {
-    auto ret = allocate(n);
+    float *ret = allocate(n);
     memcpy(ret, arr, n * sizeof(float));
     return ret;
 }
@@ -29,9 +27,7 @@ void set_value(float *arr, size_t i, float value) {
 
 EMSCRIPTEN_KEEPALIVE
 void scale(float *arr, size_t n, float factor) {
-    for (auto i = 0; i < n; ++i) {
+    for (size_t i = 0; i < n; ++i) {
         arr[i] *= factor;
     }
-}
-
 }

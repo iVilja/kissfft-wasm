@@ -1,5 +1,6 @@
-import { Int, Float32, Pointer } from "./types.js"
-
+type Int = number
+type Float32 = number
+type Pointer<T> = number
 
 export interface WASMModule {
   then(cb: () => void): WASMModule
@@ -32,3 +33,8 @@ export interface WASMModule {
   _malloc<T>(size: Int): Pointer<T>
   _free<T>(ptr: Pointer<T>): void
 }
+
+
+declare const loadModule: () => Promise<WASMModule>
+
+export default loadModule

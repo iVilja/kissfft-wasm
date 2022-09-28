@@ -1,10 +1,9 @@
 node_modules/
 
+*.o
 *.swp
 lib/
 build/
 
 /src/kissfft.cjs
 /src/kissfft.wasm
-/src/kissfft.wasm.map
-/src/kissfft.wast

@@ -1,21 +1,4 @@
-import { WASMModule } from "./wasm_module.js"
+import type { WASMModule } from "./kissfft.cjs"
+import * as kissfft from "./kissfft.cjs"
 
-export let wasm: WASMModule
-
-const loadModule = async () => {
-  const mod = await import("./kissfft")
-  wasm = await mod.default()
-}
-
-const _loading = loadModule()
-
-export function assertWASM(): void {
-  if (wasm === undefined) {
-    throw new Error("WASM is not loaded.")
-  }
-}
-
-export const waitLoading = async (): Promise<void> => {
-  await _loading
-  assertWASM()
-}
+export const wasm: WASMModule = await kissfft.default()

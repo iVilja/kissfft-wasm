@@ -1,9 +1,10 @@
+import { expect, test } from "vitest"
+
 import { RealFFTConfig, InverseRealFFTConfig } from "./rfft.js"
 import { RealArray, ComplexArray } from "./types.js"
-import { waitLoading } from "./wasm.js"
 
-test("1D Real FFT", async () => {
-  await waitLoading()
+
+test("1D Real FFT", () => {
   const n = 20
   const arr = Float32Array.from({ length: n }).map(() => Math.random())
   const config = new RealFFTConfig(n)

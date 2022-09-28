@@ -2,9 +2,9 @@
   "compilerOptions": {
     "declaration": true,
     "rootDir": "./src",
-    "target": "es6",
+    "target": "esnext",
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "nodenext",
     "lib": [
         "es2015"
     ],
@@ -15,11 +15,12 @@
         "./typings",
         "node_modules/@types"
     ],
-    "esModuleInterop": true,
+    // "esModuleInterop": true,
     "sourceMap": true
   },
   "include": [
-    "./src/**/*.ts"
+    "./src/**/*.ts",
+    "./src/**/*.cts"
   ],
   "exclude": [
     "./src/**/*.spec.ts"

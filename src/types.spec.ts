@@ -1,8 +1,9 @@
-import { ComplexArray, RealArray } from "./types.js"
-import { waitLoading } from "./wasm.js"
+import { expect, test } from "vitest"
 
-test("Complex Array", async () => {
-  await waitLoading()
+import { ComplexArray, RealArray } from "./types.js"
+
+
+test("Complex Array", () => {
   const n = 20
   const zeros = new ComplexArray(n)
   for (let i = 0; i < n; ++i) {
@@ -35,8 +36,7 @@ test("Complex Array", async () => {
   ca3.free()
 })
 
-test("Real Array", async () => {
-  await waitLoading()
+test("Real Array", () => {
   const n = 20
   const zeros = new RealArray(n)
   zeros.asFloat32Array().forEach((x) => {

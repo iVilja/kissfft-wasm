@@ -1,6 +1,7 @@
+import { expect, test } from "vitest"
+
 import { FFTNDConfig } from "./fftnd.js"
 import { ComplexArray, Int } from "./types.js"
-import { waitLoading } from "./wasm.js"
 
 
 function testNDFFT(dims: Int[]) {
@@ -21,12 +22,10 @@ function testNDFFT(dims: Int[]) {
   }
 }
 
-test("2D FFT", async () => {
-  await waitLoading()
+test("2D FFT", () => {
   testNDFFT([5, 4])
 })
 
-test("4D FFT", async () => {
-  await waitLoading()
+test("4D FFT", () => {
   testNDFFT([2, 3, 2, 5])
 })

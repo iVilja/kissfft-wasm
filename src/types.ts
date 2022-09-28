@@ -1,8 +1,9 @@
-import { wasm, assertWASM } from "./wasm.js"
+import { wasm } from "./wasm.js"
 
 export type Int = number
 export type Float32 = number
 export type Pointer<T> = number  // eslint-disable-line @typescript-eslint/no-unused-vars
+
 
 const BYTES_PER_ELEMENT = Float32Array.BYTES_PER_ELEMENT  // 4
 
@@ -48,7 +49,6 @@ export abstract class KissFFTArray {
 export class RealArray extends KissFFTArray {
   constructor(nOrArray: Int | RealArray) {
     super()
-    assertWASM()
     if (typeof nOrArray === "number") {
       this.dataLength = nOrArray
       this.dataPointer = wasm._allocate(this.dataLength)
@@ -76,7 +76,6 @@ export class RealArray extends KissFFTArray {
 export class ComplexArray extends KissFFTArray {
   constructor(nOrArray: Int | ComplexArray) {
     super()
-    assertWASM()
     if (typeof nOrArray === "number") {
       this.dataLength = 2 * nOrArray
       this.dataPointer = wasm._allocate(this.dataLength)
@@ -148,7 +147,6 @@ export abstract class KissFFTConfig<T extends KissFFTArray, K extends KissFFTArr
     public readonly nfft: Int,
     public readonly inverse: boolean
   ) {
-    assertWASM()
   }
 
   abstract get pointer(): Pointer<this>

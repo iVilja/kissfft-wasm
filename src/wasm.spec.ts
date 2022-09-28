@@ -1,7 +1,9 @@
-import { waitLoading, wasm } from "./wasm.js"
+import { expect, test } from "vitest"
+
+import { wasm } from "./wasm.js"
+
 
 test("Simple WASM", async () => {
-  await waitLoading()
   const f = wasm.cwrap<typeof wasm._kiss_fft_alloc>(
     "kiss_fft_alloc", "number", ["number", "boolean", "number", "number"]
   )

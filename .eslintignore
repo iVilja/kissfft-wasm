@@ -2,5 +2,5 @@ node_modules/
 dist/
 lib/
 coverage/
-src/kissfft.js
+src/kissfft.cjs
 deps/

@@ -1,6 +1,7 @@
+import { expect, test } from "vitest"
+
 import { RealFFTNDConfig, InverseRealFFTNDConfig } from "./rfftnd.js"
 import { RealArray, ComplexArray, Int } from "./types.js"
-import { waitLoading } from "./wasm.js"
 
 
 function testRealNDFFT(dims: Int[]) {
@@ -21,12 +22,10 @@ function testRealNDFFT(dims: Int[]) {
   }
 }
 
-test("2D Real FFT", async () => {
-  await waitLoading()
+test("2D Real FFT", () => {
   testRealNDFFT([5, 4])
 })
 
-test("4D Real FFT", async () => {
-  await waitLoading()
+test("4D Real FFT", () => {
   testRealNDFFT([2, 3, 2, 4])
 })

@@ -1,27 +1,30 @@
-CCFLAGS := -Wall
+EMCC := emcc
+CFLAGS := -Wall -I./kissfft
 EMCC_FLAGS := -s MODULARIZE -s ALLOW_MEMORY_GROWTH
 OBJ_DIR := ../src
-TARGETS := utils.cpp
+TARGETS := utils.o \
+	./kissfft/kiss_fft.o ./kissfft/kiss_fftnd.o \
+	./kissfft/kiss_fftr.o ./kissfft/kiss_fftndr.o
 
 all: release
 
 .PHONY: clean
 
-debug: CCFLAGS += -DDEBUG -g
+debug: CFLAGS += -DDEBUG -g
 debug: build
 
-release: CCFLAGS += -O3
+release: CFLAGS += -O3
 release: build
 
-test-browser: CCFLAGS += -DDEBUG -g
+test-browser: CFLAGS += -DDEBUG -g
 test-browser: OBJ_DIR = ./build
 test-browser: build
 
+%.o : %.c
+	$(EMCC) -c -o $@ $< $(CFLAGS)
 build: $(TARGETS)
-	mkdir -p $(OBJ_DIR) && emcc $(CCFLAGS) $(EMCC_FLAGS) \
-		-o $(OBJ_DIR)/kissfft.cjs -I./kissfft $(TARGETS) \
-		./kissfft/kiss_fft.c ./kissfft/kiss_fftnd.c \
-		./kissfft/kiss_fftr.c ./kissfft/kiss_fftndr.c \
+	mkdir -p $(OBJ_DIR) && $(EMCC) $(CFLAGS) $(EMCC_FLAGS) \
+		-o $(OBJ_DIR)/kissfft.cjs $(TARGETS) \
 		-s EXPORTED_RUNTIME_METHODS="['ccall', 'cwrap']" \
 		-s EXPORTED_FUNCTIONS="['_malloc', '_free', \
 		'_kiss_fft_alloc', '_kiss_fft',\

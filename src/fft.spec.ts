@@ -1,9 +1,10 @@
+import { expect, test } from "vitest"
+
 import { FFTConfig } from "./fft.js"
 import { ComplexArray } from "./types.js"
-import { waitLoading } from "./wasm.js"
 
-test("1D FFT", async () => {
-  await waitLoading()
+
+test("1D FFT", () => {
   const n = 20
   const arr = Float32Array.from({ length: n * 2 }).map(() => Math.random())
   const config = new FFTConfig(n, false)
