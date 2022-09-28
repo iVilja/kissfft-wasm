@@ -14,8 +14,8 @@
   ],
   "scripts": {
     "test": "vitest run",
-    "lint": "eslint . --ext .ts,.js,.mts",
-    "lint-fix": "eslint --fix . --ext .ts,.js,.mts",
+    "lint": "eslint . --ignore-path .gitignore --ext .ts,.js,.cts",
+    "lint-fix": "npm run lint -- --fix",
     "build:wasm-debug": "cd ./deps && make debug && cd ..",
     "build:wasm": "cd ./deps && make release && cd ..",
     "build:esm": "tsc -p . && cp src/kissfft.* lib/",

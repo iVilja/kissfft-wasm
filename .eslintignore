@@ -1,6 +1,0 @@
-node_modules/
-dist/
-lib/
-coverage/
-src/kissfft.cjs
-deps/

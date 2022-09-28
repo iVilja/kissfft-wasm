@@ -1,6 +1,6 @@
-type Int = number
-type Float32 = number
-type Pointer<T> = number
+export type Int = number
+export type Float32 = number
+export type Pointer<T> = number // eslint-disable-line @typescript-eslint/no-unused-vars
 
 export interface WASMModule {
   then(cb: () => void): WASMModule

@@ -3,7 +3,10 @@ node_modules/
 *.o
 *.swp
 lib/
+coverage/
 build/
 
 /src/kissfft.cjs
 /src/kissfft.wasm
+
+/emsdk-cache/

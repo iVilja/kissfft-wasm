@@ -1,9 +1,7 @@
 import { wasm } from "./wasm.js"
 
-export type Int = number
-export type Float32 = number
-export type Pointer<T> = number  // eslint-disable-line @typescript-eslint/no-unused-vars
-
+import type { Int, Float32, Pointer } from "./kissfft.cjs"
+export type { Int, Float32, Pointer }
 
 const BYTES_PER_ELEMENT = Float32Array.BYTES_PER_ELEMENT  // 4
 
