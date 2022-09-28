@@ -15,12 +15,12 @@
         "./typings",
         "node_modules/@types"
     ],
-    // "esModuleInterop": true,
     "sourceMap": true
   },
   "include": [
     "./src/**/*.ts",
-    "./src/**/*.cts"
+    "./src/**/*.cts",
+    "./src/**/*.mts"
   ],
   "exclude": [
     "./src/**/*.spec.ts"

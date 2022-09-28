@@ -6,7 +6,15 @@ lib/
 coverage/
 build/
 
-/src/kissfft.cjs
+/src/kissfft.[cm]js
 /src/kissfft.wasm
 
 /emsdk-cache/
+
+dist/
+*.log
+.idea
+.DS_Store
+
+/examples/common/test.js
+/examples/node/main.js

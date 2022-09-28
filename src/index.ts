@@ -1,4 +1,4 @@
-export type { ComplexNumber } from "./types.js"
+export type { ComplexNumber, Int, Float32, Pointer } from "./types.js"
 export { ComplexArray, RealArray } from "./types.js"
 
 export { FFTConfig } from "./fft.js"

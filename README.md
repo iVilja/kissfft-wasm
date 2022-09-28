@@ -19,6 +19,8 @@ handle it by default.
 - For Real input, use `rfft`, `irfft`, etc.
 - If using lower functions, remember to free every class you created after its usage.
 
+Examples can be found in [examples](./examples) folder.
+
 ## Develop
 
 - You need to have [Emscripten](https://github.com/emscripten-core/emscripten) installed before building this package.
