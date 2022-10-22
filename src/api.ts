@@ -26,80 +26,80 @@ function fftInner<C extends KissFFTConfig<T, K>, T extends KissFFTArray, K exten
   return output
 }
 
-function makeDims(dims: Int | Int[], args: IArguments): Int[] {
+function makeDims(dims: number | number[], args: IArguments): Int[] {
   return typeof dims === "number" ? Array.from({
     length: args.length - 1
-  }).map((_, i) => args[i + 1] as Int) : dims
+  }).map((_, i) => args[i + 1] as Int) : dims as Int[]
 }
 
 // Forward 1D FFT
 export function fft(input: DataArray): Float32Array {
-  return fftInner(new FFTConfig(input.length / 2, false), ComplexArray, ComplexArray, input)
+  return fftInner(new FFTConfig(input.length / 2 as Int, false), ComplexArray, ComplexArray, input)
 }
 
 // Inverse 1D FFT
 export function ifft(input: DataArray): Float32Array {
-  return fftInner(new FFTConfig(input.length / 2, true), ComplexArray, ComplexArray, input)
+  return fftInner(new FFTConfig(input.length / 2 as Int, true), ComplexArray, ComplexArray, input)
 }
 
 // Forward 2D FFT
-export function fft2d(input: DataArray, n: Int, m: Int): Float32Array {
+export function fft2d(input: DataArray, n: number, m: number): Float32Array {
   return fftnd(input, n, m)
 }
 
 // Forward ND FFT
-export function fftnd(input: DataArray, dims: Int[]): Float32Array
-export function fftnd(input: DataArray, ...dims: Int[]): Float32Array
-export function fftnd(input: DataArray, dims: Int | Int[]): Float32Array {
-  dims = makeDims(dims, arguments)
-  return fftInner(new FFTNDConfig(dims, false), ComplexArray, ComplexArray, input)
+export function fftnd(input: DataArray, dims: number[]): Float32Array
+export function fftnd(input: DataArray, ...dims: number[]): Float32Array
+export function fftnd(input: DataArray, dims: number | number[]): Float32Array {
+  const intDims = makeDims(dims, arguments)
+  return fftInner(new FFTNDConfig(intDims, false), ComplexArray, ComplexArray, input)
 }
 
 // Inverse 2D FFT
-export function ifft2d(input: DataArray, n: Int, m: Int): Float32Array {
+export function ifft2d(input: DataArray, n: number, m: number): Float32Array {
   return ifftnd(input, n, m)
 }
 
 // Inverse ND FFT
-export function ifftnd(input: DataArray, dims: Int[]): Float32Array
-export function ifftnd(input: DataArray, ...dims: Int[]): Float32Array
-export function ifftnd(input: DataArray, dims: Int | Int[]): Float32Array {
-  dims = makeDims(dims, arguments)
-  return fftInner(new FFTNDConfig(dims, true), ComplexArray, ComplexArray, input)
+export function ifftnd(input: DataArray, dims: number[]): Float32Array
+export function ifftnd(input: DataArray, ...dims: number[]): Float32Array
+export function ifftnd(input: DataArray, dims: number | number[]): Float32Array {
+  const intDims = makeDims(dims, arguments)
+  return fftInner(new FFTNDConfig(intDims, true), ComplexArray, ComplexArray, input)
 }
 
 // Forward Real 1D FFT
 export function rfft(input: DataArray): Float32Array {
-  return fftInner(new RealFFTConfig(input.length), RealArray, ComplexArray, input)
+  return fftInner(new RealFFTConfig(input.length as Int), RealArray, ComplexArray, input)
 }
 
 // Inverse Real 1D FFT
 export function irfft(input: DataArray): Float32Array {
-  return fftInner(new InverseRealFFTConfig(input.length / 2), ComplexArray, RealArray, input)
+  return fftInner(new InverseRealFFTConfig(input.length / 2 as Int), ComplexArray, RealArray, input)
 }
 
 // Forward Real 2D FFT
-export function rfft2d(input: DataArray, n: Int, m: Int): Float32Array {
+export function rfft2d(input: DataArray, n: number, m: number): Float32Array {
   return rfftnd(input, n, m)
 }
 
 // Forward Real ND FFT
-export function rfftnd(input: DataArray, dims: Int[]): Float32Array
-export function rfftnd(input: DataArray, ...dims: Int[]): Float32Array
-export function rfftnd(input: DataArray, dims: Int | Int[]): Float32Array {
-  dims = makeDims(dims, arguments)
-  return fftInner(new RealFFTNDConfig(dims), RealArray, ComplexArray, input)
+export function rfftnd(input: DataArray, dims: number[]): Float32Array
+export function rfftnd(input: DataArray, ...dims: number[]): Float32Array
+export function rfftnd(input: DataArray, dims: number | number[]): Float32Array {
+  const intDims = makeDims(dims, arguments)
+  return fftInner(new RealFFTNDConfig(intDims), RealArray, ComplexArray, input)
 }
 
 // Inverse Real 2D FFT
-export function irfft2d(input: DataArray, n: Int, m: Int): Float32Array {
-  return fftInner(new InverseRealFFTNDConfig([n, m]), ComplexArray, RealArray, input)
+export function irfft2d(input: DataArray, n: number, m: number): Float32Array {
+  return fftInner(new InverseRealFFTNDConfig([n, m] as Int[]), ComplexArray, RealArray, input)
 }
 
 // Inverse Real ND FFT
-export function irfftnd(input: DataArray, dims: Int[]): Float32Array
-export function irfftnd(input: DataArray, ...dims: Int[]): Float32Array
-export function irfftnd(input: DataArray, dims: Int | Int[]): Float32Array {
-  dims = makeDims(dims, arguments)
-  return fftInner(new InverseRealFFTNDConfig(dims), ComplexArray, RealArray, input)
+export function irfftnd(input: DataArray, dims: number[]): Float32Array
+export function irfftnd(input: DataArray, ...dims: number[]): Float32Array
+export function irfftnd(input: DataArray, dims: number | number[]): Float32Array {
+  const intDims = makeDims(dims, arguments)
+  return fftInner(new InverseRealFFTNDConfig(intDims), ComplexArray, RealArray, input)
 }

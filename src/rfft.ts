@@ -1,8 +1,4 @@
-import {
-  ComplexArray, KissFFTArray, RealArray,
-  Int, Pointer,
-  KissFFTConfig
-} from "./types.js"
+import { ComplexArray, KissFFTArray, RealArray, Int, KissFFTConfig, ConfigPointer, Float32 } from "./types.js"
 
 import { wasm } from "./wasm.js"
 
@@ -12,27 +8,25 @@ export function checkRealFFT(nfft: Int): void {
   }
 }
 
-abstract class AbstractRealFFTConfig<
-  T extends KissFFTArray, K extends KissFFTArray
-> extends KissFFTConfig<T, K> {
-  protected ptr: Pointer<this> = 0
+abstract class AbstractRealFFTConfig<T extends KissFFTArray, K extends KissFFTArray> extends KissFFTConfig<
+  T,
+  K
+> {
+  protected ptr = 0 as ConfigPointer
 
-  constructor(
-    nfft: Int,
-    inverse: boolean
-  ) {
+  constructor(nfft: Int, inverse: boolean) {
     super(nfft, inverse)
     checkRealFFT(nfft)
-    this.ptr = wasm._kiss_fftr_alloc(nfft, inverse, 0, 0)
+    this.ptr = wasm._kiss_fftr_alloc(nfft, inverse, 0 as Int, 0 as Int)
   }
 
-  public get pointer(): Pointer<this> {
+  public get pointer() {
     return this.ptr
   }
 
   public free(): void {
     wasm._free(this.ptr)
-    this.ptr = 0
+    this.ptr = 0 as ConfigPointer
   }
 }
 
@@ -55,6 +49,6 @@ export class InverseRealFFTConfig extends AbstractRealFFTConfig<ComplexArray, Re
   public work(input: ComplexArray, output: RealArray): void {
     this.check(input, output)
     wasm._kiss_fftri(this.ptr, input.pointer, output.pointer)
-    wasm._scale(output.pointer, this.nfft, 1.0 / this.nfft)
+    wasm._scale(output.pointer, this.nfft, (1.0 / this.nfft) as Float32)
   }
 }
