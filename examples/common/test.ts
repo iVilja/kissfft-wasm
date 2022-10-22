@@ -1,5 +1,4 @@
 import { fft, fft2d, fftnd, ifft, ifft2d, ifftnd, irfft, irfft2d, irfftnd, rfft, rfft2d, rfftnd } from "../../lib/index.js"
-import type { Int } from "../../lib/index.js"
 
 const doTest = (fn: () => void, n = 10000): number => {
   const start = +new Date()
@@ -10,7 +9,7 @@ const doTest = (fn: () => void, n = 10000): number => {
   return (end - start) / n
 }
 
-export const testRFFT = (n: Int, numffts = 10000): string[] => {
+export const testRFFT = (n: number, numffts = 10000): string[] => {
   const logs = [`rfft(${n}) × ${numffts}`]
   const input = Float32Array.from({ length: n }).map(() => Math.random())
   const output = rfft(input)
@@ -22,7 +21,7 @@ export const testRFFT = (n: Int, numffts = 10000): string[] => {
   return logs
 }
 
-export const testRFFT2D = (dims: [Int, Int], numffts = 10000): string[] => {
+export const testRFFT2D = (dims: [number, number], numffts = 10000): string[] => {
   const logs = [`rfft2d(${dims.join(" × ")}) × ${numffts}`]
   const n = dims.reduce((x, y) => x * y)
   const input = Float32Array.from({ length: n }).map(() => Math.random())
@@ -35,7 +34,7 @@ export const testRFFT2D = (dims: [Int, Int], numffts = 10000): string[] => {
   return logs
 }
 
-export const testRFFTND = (dims: Int[], numffts = 10000): string[] => {
+export const testRFFTND = (dims: number[], numffts = 10000): string[] => {
   const logs = [`rfftnd(${dims.join(" × ")}) × ${numffts}`]
   const n = dims.reduce((x, y) => x * y)
   const input = Float32Array.from({ length: n }).map(() => Math.random())
@@ -48,7 +47,7 @@ export const testRFFTND = (dims: Int[], numffts = 10000): string[] => {
   return logs
 }
 
-export const testFFT = (n: Int, numffts = 10000): string[] => {
+export const testFFT = (n: number, numffts = 10000): string[] => {
   const logs = [`fft(${n}) × ${numffts}`]
   const input = Float32Array.from({ length: n * 2 }).map(() => Math.random())
   const output = fft(input)
@@ -60,7 +59,7 @@ export const testFFT = (n: Int, numffts = 10000): string[] => {
   return logs
 }
 
-export const testFFT2D = (dims: [Int, Int], numffts = 10000): string[] => {
+export const testFFT2D = (dims: [number, number], numffts = 10000): string[] => {
   const logs = [`fft2d(${dims.join(" × ")}) × ${numffts}`]
   const n = dims.reduce((x, y) => x * y)
   const input = Float32Array.from({ length: n * 2 }).map(() => Math.random())
@@ -73,7 +72,7 @@ export const testFFT2D = (dims: [Int, Int], numffts = 10000): string[] => {
   return logs
 }
 
-export const testFFTND = (dims: Int[], numffts = 10000): string[] => {
+export const testFFTND = (dims: number[], numffts = 10000): string[] => {
   const logs = [`fftnd(${dims.join(" × ")}) × ${numffts}`]
   const n = dims.reduce((x, y) => x * y)
   const input = Float32Array.from({ length: n * 2 }).map(() => Math.random())
